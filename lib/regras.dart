@@ -9,7 +9,6 @@ class PagReg extends StatelessWidget {
       appBar: AppBar(
         title: Text('REGRAS'),
       ),
-      body: Container(),
     );
   }
 }
