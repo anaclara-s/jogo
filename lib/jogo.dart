@@ -1,5 +1,6 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'dart:math';
+import 'DerVitEmp.dart';
 
 class PagJogo extends StatefulWidget {
   @override
@@ -9,18 +10,23 @@ class PagJogo extends StatefulWidget {
 //LÓGICA
 
 class _PagJogoState extends State<PagJogo> {
-  List opcoes = ['Pedra', 'Papel', 'Tesoura', 'Lagarto', 'Spock'];
+  var opcoes = ['pedra', 'papel', 'tesoura', 'lagarto', 'spock'];
   String mensagem = 'Escolha do jogador: ';
 
   var imagemEsco = AssetImage('assets/imagens/fundoE.png');
+  var imagPedra = AssetImage('assets/imagens/pedra.png');
+  var imagPapel = AssetImage('assets/imagens/papel.png');
+  var imagTesoura = AssetImage('assets/imagens/tesoura.png');
+  var imagLagarto = AssetImage('assets/imagens/lagarto.png');
+  var imagSpock = AssetImage('assets/imagens/spock.png');
 
   void Jogada(String escolha) {
-    int O = Random().nextInt(opcoes.length);
-    String aleatorio = opcoes[0];
+    int o = Random().nextInt(4);
+    String aleatorio = opcoes[o];
 
-    this.imagemEsco = AssetImage('assets/imagens/$aleatorio.png');
+    imagemEsco = AssetImage('assets/imagens/$aleatorio.png');
 
-    print('TOQUE:' + escolha + ', Random: ' + aleatorio);
+    print('TOQUE:$escolha, Random: $aleatorio');
 
     if ( //derrota usuario
         (escolha == 'pedra' && aleatorio == 'papel') ||
@@ -34,7 +40,7 @@ class _PagJogoState extends State<PagJogo> {
             (escolha == 'spock' && aleatorio == 'lagarto') ||
             (escolha == 'spock' && aleatorio == 'papel')) {
       setState(() {
-        this.mensagem = 'DERROTA';
+        mensagem == derrota();
       });
     } else if ( //vitoria usuario
         (escolha == 'pedra' && aleatorio == 'tesoura') ||
@@ -48,12 +54,12 @@ class _PagJogoState extends State<PagJogo> {
             (escolha == 'spock' && aleatorio == 'tesoura') ||
             (escolha == 'spock' && aleatorio == 'pedra')) {
       setState(() {
-        this.mensagem = 'VITORIA';
+        mensagem == vitoria();
       });
     } else {
       //empate
       setState(() {
-        this.mensagem = 'EMPATE';
+        mensagem == empate();
       });
     }
   }
@@ -66,50 +72,63 @@ class _PagJogoState extends State<PagJogo> {
       appBar: AppBar(
         title: Text('JOGO'),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Text(
-                'PC:',
-              ),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Text(
+              'PC:',
             ),
-            Image(image: imagemEsco, height: 300),
-            Padding(
-              padding: EdgeInsets.only(bottom: 30),
-              child: Text(
-                mensagem,
-              ),
+          ),
+          Image(image: imagemEsco, height: 100),
+          Padding(
+            padding: EdgeInsets.only(bottom: 20),
+            child: Text(
+              mensagem,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () => Jogada('pedra'),
-                  child: Image.asset('assets/imagens/pedra.png'),
-                ),
-                GestureDetector(
-                  onTap: () => Jogada('papel'),
-                  child: Image.asset('assets/imagens/papel.png'),
-                ),
-                GestureDetector(
-                  onTap: () => Jogada('tesoura'),
-                  child: Image.asset('assets/imagens/tesoura.png'),
-                ),
-                GestureDetector(
-                  onTap: () => Jogada('lagarto'),
-                  child: Image.asset('assets/imagens/lagarto.png'),
-                ),
-                GestureDetector(
-                  onTap: () => Jogada('spock'),
-                  child: Image.asset('assets/imagens/spock.png'),
-                ),
-              ],
-            )
-          ],
-        ),
+          ),
+          //
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () => Jogada('pedra'),
+                child: Image(image: imagPedra, height: 100),
+              ),
+              GestureDetector(
+                onTap: () => Jogada('papel'),
+                child: Image(image: imagPapel, height: 100),
+              ),
+            ],
+          ),
+          //
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () => Jogada('tesoura'),
+                child: Image(image: imagTesoura, height: 100),
+              ),
+            ],
+          ),
+          //
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () => Jogada('lagarto'),
+                child: Image(image: imagLagarto, height: 100),
+              ),
+              GestureDetector(
+                onTap: () => Jogada('spock'),
+                child: Image(image: imagSpock, height: 100),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

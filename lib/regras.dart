@@ -7,7 +7,7 @@ class PagReg extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('REGRAS'),
+        title: const Text('REGRAS'),
       ),
     );
   }
