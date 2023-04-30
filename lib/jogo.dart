@@ -21,8 +21,8 @@ class _PagJogoState extends State<PagJogo> {
   var imagSpock = AssetImage('assets/imagens/spock.png');
 
   void Jogada(String escolha) {
-    int o = Random().nextInt(4);
-    String aleatorio = opcoes[o];
+    int a = Random().nextInt(4);
+    String aleatorio = opcoes[a];
 
     imagemEsco = AssetImage('assets/imagens/$aleatorio.png');
 
