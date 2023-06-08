@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jogo/paginaInicial.dart';
+import 'jogo.dart';
 
 void main() {
   runApp(
-    MaterialApp(home: PagIni()),
+    MaterialApp(home: PagJogo()),
   );
 }

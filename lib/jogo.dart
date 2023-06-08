@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'DerVitEmp.dart';
 
 class PagJogo extends StatefulWidget {
   @override
@@ -11,20 +10,22 @@ class PagJogo extends StatefulWidget {
 
 class _PagJogoState extends State<PagJogo> {
   var opcoes = ['pedra', 'papel', 'tesoura', 'lagarto', 'spock'];
-  String mensagem = 'Escolha do jogador: ';
+  var mensagem = ' ';
 
-  var imagemEsco = AssetImage('assets/imagens/fundoE.png');
-  var imagPedra = AssetImage('assets/imagens/pedra.png');
-  var imagPapel = AssetImage('assets/imagens/papel.png');
-  var imagTesoura = AssetImage('assets/imagens/tesoura.png');
-  var imagLagarto = AssetImage('assets/imagens/lagarto.png');
-  var imagSpock = AssetImage('assets/imagens/spock.png');
+  var imEscoPC = const AssetImage('assets/imagens/fundoE.png');
+  var imEscoUSER = const AssetImage('assets/imagens/fundoE.png');
+  var imagPedra = const AssetImage('assets/imagens/pedra.png');
+  var imagPapel = const AssetImage('assets/imagens/papel.png');
+  var imagTesoura = const AssetImage('assets/imagens/tesoura.png');
+  var imagLagarto = const AssetImage('assets/imagens/lagarto.png');
+  var imagSpock = const AssetImage('assets/imagens/spock.png');
 
   void Jogada(String escolha) {
     int a = Random().nextInt(4);
     String aleatorio = opcoes[a];
 
-    imagemEsco = AssetImage('assets/imagens/$aleatorio.png');
+    imEscoPC = AssetImage('assets/imagens/$aleatorio.png');
+    imEscoUSER = AssetImage('assets/imagens/$escolha.png');
 
     print('TOQUE:$escolha, Random: $aleatorio');
 
@@ -40,7 +41,7 @@ class _PagJogoState extends State<PagJogo> {
             (escolha == 'spock' && aleatorio == 'lagarto') ||
             (escolha == 'spock' && aleatorio == 'papel')) {
       setState(() {
-        mensagem == derrota();
+        mensagem = 'derrota';
       });
     } else if ( //vitoria usuario
         (escolha == 'pedra' && aleatorio == 'tesoura') ||
@@ -54,12 +55,12 @@ class _PagJogoState extends State<PagJogo> {
             (escolha == 'spock' && aleatorio == 'tesoura') ||
             (escolha == 'spock' && aleatorio == 'pedra')) {
       setState(() {
-        mensagem == vitoria();
+        mensagem = 'vitoria';
       });
     } else {
       //empate
       setState(() {
-        mensagem == empate();
+        mensagem = 'empate';
       });
     }
   }
@@ -69,27 +70,33 @@ class _PagJogoState extends State<PagJogo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('JOGO'),
-      ),
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 20),
+            padding: EdgeInsetsDirectional.only(top: 10, bottom: 20),
             child: Text(
               'PC:',
             ),
           ),
-          Image(image: imagemEsco, height: 100),
+          Image(image: imEscoPC, height: 120),
+          //
           Padding(
-            padding: EdgeInsets.only(bottom: 20),
+            padding: EdgeInsets.only(top: 20, bottom: 20),
+            child: Text(
+              'Escolha do jogador: ',
+            ),
+          ),
+          Image(image: imEscoUSER, height: 120),
+          //
+          Padding(
+            padding: EdgeInsetsDirectional.all(10),
             child: Text(
               mensagem,
             ),
           ),
           //
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
@@ -115,7 +122,7 @@ class _PagJogoState extends State<PagJogo> {
           ),
           //
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
@@ -128,6 +135,11 @@ class _PagJogoState extends State<PagJogo> {
               ),
             ],
           ),
+          // SizedBox(
+          //   width: 150,
+          //   height: 80,
+          //   child:
+          // ),
         ],
       ),
     );
